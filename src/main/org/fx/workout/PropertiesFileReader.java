@@ -15,7 +15,7 @@ public class PropertiesFileReader {
 	public static void main(String[] args) {
 		Map<String, String> map = null;
 		try {
-			map = getProperty(Constants.CURRENCY_RATES_PATH);
+			map = getProperty(Constants.CURRENCY_MATRIX_PATH);
 		} catch (CurrencyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

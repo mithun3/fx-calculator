@@ -2,6 +2,7 @@ package org.fx.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,10 +19,10 @@ import org.fx.exception.CurrencyException;
  *
  */
 public class PropertiesUtil {
-	
 	private static PropertiesUtil instance = null;
 	private Properties properties;
-	private FileInputStream inputStream = null;
+	private InputStream inputStream = null;
+	private static ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
 	/**
 	 * private constructor to make sure no one invokes it from outside here.
@@ -49,12 +50,12 @@ public class PropertiesUtil {
 
 	/**
 	 * Method to get all the properties and load them in a map so that lookup can be achieved faster.
-	 * @param path
+	 * @param file
 	 * @return
 	 * @throws IOException
 	 */
-	public Map<String, String> getProperty(String path) throws IOException {
-		inputStream = new FileInputStream(path);
+	public Map<String, String> getProperty(String file) throws IOException {
+		inputStream = loader.getResourceAsStream(file);
 		properties.load(inputStream);
 		Map<String, String> map = new HashMap<String, String>();
 		for (final Entry<Object, Object> entry : properties.entrySet()) {
@@ -70,12 +71,12 @@ public class PropertiesUtil {
 	 */
 	
 	@SuppressWarnings("finally")
-	public static Map<String, String> getProperties(String filePath) throws CurrencyException {
-		FileInputStream inputStream = null;
+	public static Map<String, String> getProperties(String file) throws CurrencyException {
+		InputStream inputStream = null;
 		Properties properties = new Properties();
 		Map<String, String> map = new HashMap<String, String>();
 		try {
-			inputStream = new FileInputStream(filePath);
+			inputStream = loader.getResourceAsStream(file);;
 			properties.load(inputStream);
 			for (final Entry<Object, Object> entry : properties.entrySet()) {
 				map.put((String) entry.getKey(), (String) entry.getValue());
