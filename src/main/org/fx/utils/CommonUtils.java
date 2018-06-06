@@ -87,5 +87,15 @@ public class CommonUtils {
 	public static boolean isNullOrEmpty(String input){
 		return input != null && !input.trim().isEmpty();
 	}
+	
+	public static String getCurrencyRate(String baseTermAndRates) {
+		Map<String, String> map = null;
+		try {
+			map = PropertiesUtil.getProperties(Constants.CURRENCY_RATES_PATH);
+		} catch (CurrencyException e) {
+			System.err.println("Unable to get Currency Rates from properties file." + e);
+		}
+		return map.get(baseTermAndRates);
+	}
 
 }

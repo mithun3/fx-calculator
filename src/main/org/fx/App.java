@@ -3,7 +3,8 @@ package org.fx;
 import java.util.Scanner;
 
 import org.fx.constants.Constants;
-import org.fx.engine.Engine;
+import org.fx.engine.service.Engine;
+import org.fx.engine.service.impl.EngineImpl;
 import org.fx.exception.CurrencyException;
 import org.fx.utils.CommonUtils;
 import org.fx.validation.Validator;
@@ -34,7 +35,8 @@ public class App {
 			try {
 				if(Validator.isExpressionValid(input)){
 					input = Validator.updateInput(input);
-					convertedValue = Engine.evaluate(input);
+					Engine engine = new EngineImpl();
+					convertedValue = engine.evaluate(input);
 				} else {
 					throw new CurrencyException(Constants.EXCEPTION_WITH_INPUT);
 				}
