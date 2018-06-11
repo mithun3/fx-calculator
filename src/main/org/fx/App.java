@@ -23,32 +23,49 @@ public class App {
 	 * @throws CurrencyException 
 	 */
 	public static void main(String[] args) throws CurrencyException {
-		System.out.println(Constants.WELCOME_MESSAGE);
-		System.out.print(Constants.WELCOME_EXAMPLE_MESSAGE);
-		@SuppressWarnings("resource")
+		System.out.println(Constants.WELCOME_MESSAGE + Constants.WELCOME_EXAMPLE_MESSAGE);
 		Scanner scanner = new Scanner(System.in);
-		//Scan the input and wait for next input
+		Engine engine = new EngineImpl();
 		while(scanner.hasNext()) {
-			String[] input = scanner.nextLine().trim().split("\\s+");
-			double convertedValue = 0;
-			//System.out.println(Constants.FX_EXPRESSION_ENTERED + Arrays.toString(input));
-			try {
-				if(Validator.isExpressionValid(input)){
-					input = Validator.updateInput(input);
-					Engine engine = new EngineImpl();
-					convertedValue = engine.evaluate(input);
-				} else {
-					throw new CurrencyException(Constants.EXCEPTION_WITH_INPUT);
-				}
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
+			calculate(scanner, engine);
+		}
+	}
+
+	/**
+	 * 
+	 * @param scanner
+	 * @param engine
+	 * @throws CurrencyException
+	 */
+	private static void calculate(Scanner scanner, Engine engine) throws CurrencyException {
+		String[] input = scanner.nextLine().trim().split(Constants.SPLIT_BY_SPACE);
+		double convertedValue = 0;
+		try {
+			if(Validator.isExpressionValid(input)){
+				input = Validator.updateInput(input);
+				convertedValue = engine.evaluate(input);
+			} else {
+				System.err.println(Constants.EXCEPTION_WITH_INPUT);
 			}
-			if (convertedValue == 0 && input.length == 4) {
-				System.out.println(String.format(Constants.RATE_NOT_FOUND, input[0], input[3]));
-			} else if (input.length == 4){
-				System.out.println(String.format(Constants.FORMAT_OUTPUT, input[0], input[1], input[3], 
-						CommonUtils.displayBasedOnprecision(convertedValue, input[3])));
-			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		display(input, convertedValue);
+	}
+
+	/**
+	 * 
+	 * @param input
+	 * @param convertedValue
+	 * @throws CurrencyException
+	 */
+	//TODO: aud 0 to aud >> Unable to find rate for AUD/AUD
+	private static void display(String[] input, double convertedValue) throws CurrencyException {
+		if (convertedValue == 0 && input.length == 4) {
+			System.out.println(String.format(Constants.RATE_NOT_FOUND, input[0], input[3]));
+		} else if (input.length == 4){
+			System.out.println(String.format(Constants.FORMAT_OUTPUT, input[0], input[1], input[3], 
+					CommonUtils.displayBasedOnprecision(convertedValue, input[3])));
 		}
 	}
 }

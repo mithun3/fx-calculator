@@ -27,7 +27,6 @@ public class PropertiesFileReader {
 
 	@SuppressWarnings("finally")
 	public static Map<String, String> getProperty(String filePath) throws CurrencyException {
-		@SuppressWarnings("finally")
 		FileInputStream inputStream = null;
 		Properties properties = new Properties();
 		Map<String, String> map = new HashMap<String, String>();

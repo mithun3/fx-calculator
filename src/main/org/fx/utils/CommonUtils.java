@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.fx.constants.Constants;
 import org.fx.exception.CurrencyException;
-import org.fx.validation.Validator;
 
 /**
  * A common utility class.
@@ -22,6 +21,7 @@ public class CommonUtils {
 	 * @param decimals	the number of decimal points a currency is entitled to.
 	 * @return			in case of 2 #.## will be returned.
 	 */
+	//TODO: Change this method
 	public static String generateDecimals(String decimals) {
 		StringBuilder decimal = new StringBuilder(Constants.HASH_CONSTANT);
 		if (isNumeric(decimals)) {

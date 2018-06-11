@@ -15,6 +15,7 @@ public class Constants {
 	public static final String TO_CONSTANT = "TO";
 	public static final String HASH_CONSTANT = "#";
 	public static final String PERIOD_CONSTANT = ".";
+	public static final String SPLIT_BY_SPACE = "\\s+";
 	
 	//Regular expressions
 	public static String REG_EX_DECIMAL_NUMBER = "[-+]?\\d*\\.?\\d+";

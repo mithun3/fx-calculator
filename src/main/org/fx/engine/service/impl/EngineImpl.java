@@ -6,11 +6,10 @@ import java.util.Map;
 import org.fx.constants.Constants;
 import org.fx.constants.Currency;
 import org.fx.engine.service.Engine;
-import org.fx.engine.value.Value;
-import org.fx.engine.value.ValueFactory;
 import org.fx.exception.CurrencyException;
 import org.fx.utils.CommonUtils;
 import org.fx.utils.PropertiesUtil;
+import org.fx.workout.designs.strategy.CalculatorFactory;
 
 /**
  * This is the class that is responsible for forex calculation.
@@ -22,7 +21,8 @@ public class EngineImpl implements Engine {
 	/**
 	 * This method takes all the inputs and calculates the cross-via matrix value from the properties file.
 	 * Also, it gets the FX Rate by invoking the appropriate method.
-	 * @param input					input is a String array of console input. ex: AUD 10 IN AUD (these params are split into an array)
+	 * @param input					input is a String array of console input. ex: AUD 10 IN AUD 
+	 * 								(these params are split into an array)
 	 * @return						the return value is an evaluated double value
 	 * @throws CurrencyException 
 	 * @throws IOException 
@@ -47,14 +47,14 @@ public class EngineImpl implements Engine {
 	 * @return						the cross matrix values are returned. ex: AUD to AUD is DIRECT.
 	 * @throws CurrencyException 	in case of an exception.
 	 */
-	public double getValueBasedOnCrossMatrix(String crossViaMatrixValue, String base, String term, String amount) throws IOException, CurrencyException {
+	public double getValueBasedOnCrossMatrix(String crossViaMatrixValue, String base, String term, String amount)
+			throws IOException, CurrencyException {
 		double convertedValue = 0;
-		ValueFactory valueFactory = new ValueFactory();
-		Value value = valueFactory.getValue(crossViaMatrixValue);
+		CalculatorFactory calculatorFactory = new CalculatorFactory();
 		if (crossViaMatrixValue.contains(Currency.lookup(crossViaMatrixValue).toString())) {
 			convertedValue = calculateCrossCountryLookup(base, term, crossViaMatrixValue, amount);
-		} else if (value != null){
-			convertedValue = value.value(Double.valueOf(amount), base, term);
+		} else {
+			convertedValue = calculatorFactory.getValue(crossViaMatrixValue, base, term, Double.valueOf(amount));
 		}
 		return convertedValue;
 	}

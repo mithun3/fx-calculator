@@ -1,11 +1,11 @@
-package org.fx.engine.value;
+package org.fx.engine.strategy;
 
 import org.fx.utils.CommonUtils;
 
-public class Direct implements Value{
+public class DirectFeed implements Strategy {
 
 	@Override
-	public double value(Double amount, String base, String term) {
+	public double doOperation(String base, String term, double amount) {
 		double value = Double.valueOf(CommonUtils.getCurrencyRate(base + term));
 		return amount * value;
 	}

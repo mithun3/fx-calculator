@@ -32,6 +32,7 @@ public class Validator {
 	 * @param input
 	 * @return
 	 */
+	//TODO: Check method name
 	public static boolean isFirstArgumentValid(String input){
 		if(CommonUtils.isNullOrEmpty(input) && isValidCurrecy(input))
 			return true;
