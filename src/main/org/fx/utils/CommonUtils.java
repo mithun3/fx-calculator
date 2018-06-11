@@ -101,10 +101,10 @@ public class CommonUtils {
 	 */
 	public static void calculate(Scanner scanner, Engine engine) throws CurrencyException {
 		String[] input = scanner.nextLine().trim().split(Constants.SPLIT_BY_SPACE);
-		input = updateInput(input);
 		double convertedValue = 0;
 		try {
 			if(Validator.isExpressionValid(input)){
+				input = updateInput(input);
 				convertedValue = engine.evaluate(input);
 			} else {
 				System.err.println(Constants.EXCEPTION_WITH_INPUT);
