@@ -1,5 +1,10 @@
 package org.fx.engine.strategy;
 
+/**
+ * Context is a class which uses a Strategy.
+ * @author 617150
+ *
+ */
 public class Context {
 	
 	private Strategy strategy;

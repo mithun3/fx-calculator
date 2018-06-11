@@ -40,7 +40,7 @@ public class FXTest {
 	public void testAUDtoCAD() throws CurrencyException, IOException {
 		result = engine.evaluate(new String[] {"AUD", "100", "IN", "CAD"});
 		finalResult = CommonUtils.displayBasedOnprecision(result, "CAD");
-		assertEquals("96.1", finalResult);
+		assertEquals("96.10", finalResult);
 	}
 	
 	//TODO: test why this is failing
@@ -55,7 +55,7 @@ public class FXTest {
 	public void testAUDtoAUD() throws CurrencyException, IOException {
 		result = engine.evaluate(new String[] {"AUD", "100", "IN", "AUD"});
 		finalResult = CommonUtils.displayBasedOnprecision(result, "AUD");
-		assertEquals("100", finalResult);
+		assertEquals("100.00", finalResult);
 	}
 	
 	@Test
@@ -83,21 +83,21 @@ public class FXTest {
 	public void testAUDtoGBP() throws CurrencyException, IOException {
 		result = engine.evaluate(new String[] {"AUD", "100", "IN", "CAD"});
 		finalResult = CommonUtils.displayBasedOnprecision(result, "CAD");
-		assertEquals("96.1", finalResult);
+		assertEquals("96.10", finalResult);
 	}
 	
 	@Test
 	public void testAUDtoNOK() throws CurrencyException, IOException {
 		result = engine.evaluate(new String[] {"AUD", "100", "IN", "NOK"});
 		finalResult = CommonUtils.displayBasedOnprecision(result, "NOK");
-		assertEquals("589", finalResult);
+		assertEquals("589.00", finalResult);
 	}
 	
 	@Test
 	public void testAUDtoNZD() throws CurrencyException, IOException {
 		result = engine.evaluate(new String[] {"AUD", "100", "IN", "CAD"});
 		finalResult = CommonUtils.displayBasedOnprecision(result, "CAD");
-		assertEquals("96.1", finalResult);
+		assertEquals("96.10", finalResult);
 	}
 
 	@Test

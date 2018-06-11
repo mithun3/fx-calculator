@@ -32,9 +32,8 @@ public class Validator {
 	 * @param input
 	 * @return
 	 */
-	//TODO: Check method name
 	public static boolean isFirstArgumentValid(String input){
-		if(CommonUtils.isNullOrEmpty(input) && isValidCurrecy(input))
+		if(CommonUtils.isNotNullOrEmpty(input) && isValidCurrecy(input))
 			return true;
 		return false;
 	}
@@ -45,7 +44,7 @@ public class Validator {
 	 * @return
 	 */
 	public static boolean isSecondArgumentValid(String input){
-		if(CommonUtils.isNullOrEmpty(input) && CommonUtils.isNumeric(input))
+		if(CommonUtils.isNotNullOrEmpty(input) && CommonUtils.isNumeric(input))
 			return true;
 		return false;
 	}
@@ -56,7 +55,7 @@ public class Validator {
 	 * @return
 	 */
 	public static boolean isThirdArgumentValid(String input){
-		if(CommonUtils.isNullOrEmpty(input) && (input.contains(Constants.TO_CONSTANT) || input.contains(Constants.IN_CONSTANT)))
+		if(CommonUtils.isNotNullOrEmpty(input) && (input.contains(Constants.TO_CONSTANT) || input.contains(Constants.IN_CONSTANT)))
 			return true;
 		return false;
 	}
@@ -67,7 +66,7 @@ public class Validator {
 	 * @return
 	 */
 	public static boolean isFourthArgumentValid(String input){
-		if(CommonUtils.isNullOrEmpty(input) && isValidCurrecy(input))
+		if(CommonUtils.isNotNullOrEmpty(input) && isValidCurrecy(input))
 			return true;
 		return false;
 	}
@@ -79,24 +78,10 @@ public class Validator {
 	 */
 	public static boolean isValidCurrecy(String input){
 		boolean isValid = false;
-		if(CommonUtils.isNullOrEmpty(input) && input.contains(Currency.lookup(input).toString()))
+		if(CommonUtils.isNotNullOrEmpty(input) && input.contains(Currency.lookup(input).toString()))
 			isValid = true;
 		if(!isValid)
 			System.out.println(Constants.INVALID_CURRENCY + input);
 		return isValid;
 	}
-	
-	/**
-	 * Method to update input by trimming and converting it to upper case.
-	 * @param input
-	 * @return
-	 */
-	public static String[] updateInput(String[] input) {
-		input[0] = input[0].trim().toUpperCase();
-		input[1] = input[1].trim().toUpperCase();
-		input[2] = input[2].trim().toUpperCase();
-		input[3] = input[3].trim().toUpperCase();
-		return input;
-	}
-
 }

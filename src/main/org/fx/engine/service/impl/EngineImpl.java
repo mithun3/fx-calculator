@@ -12,7 +12,7 @@ import org.fx.utils.PropertiesUtil;
 import org.fx.workout.designs.strategy.CalculatorFactory;
 
 /**
- * This is the class that is responsible for forex calculation.
+ * This is the class that is responsible for FX calculation.
  * @author 617150
  *
  */
@@ -31,8 +31,7 @@ public class EngineImpl implements Engine {
 		String base = input[0];
 		String term = input[3];
 		String amount = input[1];
-		String crossViaMatrixValue = getValueFromCrossViaMatrix(input);
-		return getValueBasedOnCrossMatrix(crossViaMatrixValue, base, term, amount);
+		return getValueBasedOnCrossMatrix(base, term, amount);
 	}
 
 	/**
@@ -47,9 +46,10 @@ public class EngineImpl implements Engine {
 	 * @return						the cross matrix values are returned. ex: AUD to AUD is DIRECT.
 	 * @throws CurrencyException 	in case of an exception.
 	 */
-	public double getValueBasedOnCrossMatrix(String crossViaMatrixValue, String base, String term, String amount)
+	public double getValueBasedOnCrossMatrix(String base, String term, String amount)
 			throws IOException, CurrencyException {
 		double convertedValue = 0;
+		String crossViaMatrixValue = getValueFromCrossViaMatrix(base, term);
 		CalculatorFactory calculatorFactory = new CalculatorFactory();
 		if (crossViaMatrixValue.contains(Currency.lookup(crossViaMatrixValue).toString())) {
 			convertedValue = calculateCrossCountryLookup(base, term, crossViaMatrixValue, amount);
@@ -60,7 +60,7 @@ public class EngineImpl implements Engine {
 	}
 
 	/**
-	 * This is sort of a recursive call.
+	 * This will be recursive call in case there are many look ups.
 	 * ex AUD 100 IN DKK
 	 * For the above example there are the country is looked up 3 times.
 	 * First, USD, then EURO and finally Danish Krone.
@@ -88,14 +88,14 @@ public class EngineImpl implements Engine {
 	 * @param input	input is a String array of console input. ex: AUD 10 IN AUD (these params are split into an array)
 	 * @return		the currency matrix key after reading from the map extracted out of the properties file.
 	 */
-	public String getValueFromCrossViaMatrix(String[] input) throws CurrencyException {
+	public String getValueFromCrossViaMatrix(String base, String term) throws CurrencyException {
 		Map<String, String> map = null;
 		try {
 			map = PropertiesUtil.getInstance().getProperty(Constants.CURRENCY_MATRIX_PATH);
 		} catch (IOException e) {
 			System.err.println("Unable to get Currency Matrix from properties file." + e);
 		}
-		String currencyMatrixKey = input[0] + input[3];
+		String currencyMatrixKey = base + term;
 		return map.get(currencyMatrixKey);
 	}
 }

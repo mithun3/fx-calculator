@@ -40,5 +40,43 @@ public class Constants {
 	public static final String EXCEPTION_WITH_INPUT = "Problem with the input. ";
 	public static final String EXCEPTION_NOT_A_VALID_NUMBER = "Not a valid decimal, does not seem to be numeric. ";
 	public static final String EXCEPTION_UNABLE_TO_FETCH_CURRENCY_RATES = "Unable to get Currency Rates from properties file.";
+	
+	public static final String USD = "USD";
+	public static final String CAD = "CAD";
+	public static final String CNY = "CNY";
+	public static final String CZK = "CZK";
+	public static final String DKK = "DKK";
+	public static final String EUR = "EUR";
+	public static final String GBP = "GBP";
+	public static final String JPY = "JPY";
+	public static final String NOK = "NOK";
+	public static final String NZD = "NZD";
+	public static final String AUD = "AUD";
+	
+	public static final String XYZ = "XYZ";
+	
+	//Lookup Combinations
+	public static final String AUDUSD = "AUDUSD";
+	public static final String CADUSD = "CADUSD";
+	public static final String USDCNY = "USDCNY";
+	public static final String EURUSD = "EURUSD";
+	public static final String GBPUSD = "GBPUSD";
+	public static final String NZDUSD = "NZDUSD";
+	public static final String USDJPY = "USDJPY";
+	public static final String EURCZK = "EURCZK";
+	public static final String EURDKK = "EURDKK";
+	public static final String EURNOK = "EURNOK";
+	
+	//Rates
+	public static final String AUDUSD_RATE = "0.8371";
+	public static final String CADUSD_RATE = "0.8711";
+	public static final String USDCNY_RATE = "6.1715";
+	public static final String EURUSD_RATE = "1.2315";
+	public static final String GBPUSD_RATE = "1.5683";
+	public static final String NZDUSD_RATE = "0.7750";
+	public static final String USDJPY_RATE = "119.95";
+	public static final String EURCZK_RATE = "27.6028";
+	public static final String EURDKK_RATE = "7.4405";
+	public static final String EURNOK_RATE = "8.6651";
 
 }

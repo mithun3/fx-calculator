@@ -3,9 +3,12 @@ package org.fx.utils;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.fx.constants.Constants;
+import org.fx.engine.service.Engine;
 import org.fx.exception.CurrencyException;
+import org.fx.validation.Validator;
 
 /**
  * A common utility class.
@@ -13,32 +16,6 @@ import org.fx.exception.CurrencyException;
  *
  */
 public class CommonUtils {
-	
-	/**
-	 * Used to dynamically generate Decimal value to be displayed.
-	 * ex. if the precission is 3 this will generate #.###
-	 * Which will be substituted in the DecimalFormat constructor.
-	 * @param decimals	the number of decimal points a currency is entitled to.
-	 * @return			in case of 2 #.## will be returned.
-	 */
-	//TODO: Change this method
-	public static String generateDecimals(String decimals) {
-		StringBuilder decimal = new StringBuilder(Constants.HASH_CONSTANT);
-		if (isNumeric(decimals)) {
-			if (Integer.valueOf(decimals) > 0)
-				decimal.append(Constants.PERIOD_CONSTANT);
-			for(int i = 0; i < Integer.valueOf(decimals); i++) {
-				decimal.append(Constants.HASH_CONSTANT);
-			}
-		} else {
-			try {
-				throw new CurrencyException(Constants.EXCEPTION_NOT_A_VALID_NUMBER);
-			} catch (CurrencyException e) {
-				System.err.println(e.getMessage());
-			}
-		}
-		return decimal.toString();
-	}
 	
 	/**
 	 * Used to fetch the precision from the currency decimal properties file
@@ -51,7 +28,7 @@ public class CommonUtils {
 		DecimalFormat format = null;
 		try {
 			Map<String, String> map = PropertiesUtil.getInstance().getProperty(Constants.CURRENCY_DECIMALS_PATH);
-			format = new DecimalFormat(CommonUtils.generateDecimals(map.get(term)));
+			format = new DecimalFormat(map.get(term));
 		} catch (IOException e) {
 			System.err.println(Constants.EXCEPTION_UNABLE_TO_FETCH_CURRENCY_RATES + e.getMessage());
 		}
@@ -84,7 +61,7 @@ public class CommonUtils {
 	 * @param input input is a String array of console input. ex: AUD 10 IN AUD (these params are split into an array)
 	 * @return		return true if null or empty.
 	 */
-	public static boolean isNullOrEmpty(String input){
+	public static boolean isNotNullOrEmpty(String input){
 		return input != null && !input.trim().isEmpty();
 	}
 	
@@ -96,6 +73,59 @@ public class CommonUtils {
 			System.err.println("Unable to get Currency Rates from properties file." + e);
 		}
 		return map.get(baseTermAndRates);
+	}
+	
+	/**
+	 * A display utility that will display the result in the expected format.
+	 * @param input
+	 * @param convertedValue
+	 * @throws CurrencyException
+	 */
+	//TODO: aud 0 to aud >> Unable to find rate for AUD/AUD
+	private static void display(String[] input, double convertedValue) throws CurrencyException {
+		if (convertedValue == 0 && input.length == 4) {
+			System.out.println(String.format(Constants.RATE_NOT_FOUND, input[0], input[3]));
+		} else if (input.length == 4){
+			System.out.println(String.format(Constants.FORMAT_OUTPUT, input[0], input[1], input[3], 
+					displayBasedOnprecision(convertedValue, input[3])));
+		}
+	}
+	
+	/**
+	 * This method takes the scanner input and splits it into a String array.
+	 * This string array is then updated by trimming the input, also, it is converted to uppercase as a precaution.
+	 * Finally, the expression is validated and then evaluated.
+	 * @param scanner				contains the nextLine to be processed.
+	 * @param engine				this is an instance of the Engine class which will be used to evaluate the given expression / input.
+	 * @throws CurrencyException
+	 */
+	public static void calculate(Scanner scanner, Engine engine) throws CurrencyException {
+		String[] input = scanner.nextLine().trim().split(Constants.SPLIT_BY_SPACE);
+		input = updateInput(input);
+		double convertedValue = 0;
+		try {
+			if(Validator.isExpressionValid(input)){
+				convertedValue = engine.evaluate(input);
+			} else {
+				System.err.println(Constants.EXCEPTION_WITH_INPUT);
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		display(input, convertedValue);
+	}
+	
+	/**
+	 * Method to update input by trimming and converting it to upper case.
+	 * @param input
+	 * @return
+	 */
+	private static String[] updateInput(String[] input) {
+		input[0] = input[0].trim().toUpperCase();
+		input[1] = input[1].trim().toUpperCase();
+		input[2] = input[2].trim().toUpperCase();
+		input[3] = input[3].trim().toUpperCase();
+		return input;
 	}
 
 }

@@ -8,10 +8,10 @@ public interface Engine {
 	
 	double evaluate(String[] input) throws IOException, CurrencyException;
 	
-	double getValueBasedOnCrossMatrix(String crossViaMatrixValue, String base, String term, String amount) throws IOException, CurrencyException;
+	double getValueBasedOnCrossMatrix(String base, String term, String amount) throws IOException, CurrencyException;
 	
 	double calculateCrossCountryLookup(String base, String term, String crossCountryBase, String amount) throws CurrencyException, IOException;
 	
-	String getValueFromCrossViaMatrix(String[] input) throws CurrencyException;
+	String getValueFromCrossViaMatrix(String base, String term) throws CurrencyException;
 
 }

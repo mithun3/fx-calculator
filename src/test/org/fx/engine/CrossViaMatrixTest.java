@@ -2,6 +2,7 @@ package org.fx.engine;
 
 import static org.junit.Assert.assertEquals;
 
+import org.fx.constants.Constants;
 import org.fx.engine.service.Engine;
 import org.fx.engine.service.impl.EngineImpl;
 import org.fx.exception.CurrencyException;
@@ -13,7 +14,8 @@ public class CrossViaMatrixTest {
 	
 	String crossViaMatrixValue = null;
 	private Engine engine;
-	private String[] input;
+	String base = null;
+	String term = null;
 	
 	@Before
 	public void before() {
@@ -23,85 +25,73 @@ public class CrossViaMatrixTest {
 	@After
 	public void after() {
 		engine = null;
-		input = null;
+		base = null;
+		term = null;
 	}
 	
 	@Test
 	public void testValueForAUDUSA() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "AUD"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.AUD);
 		assertEquals("UNITY", crossMatrixValue);
 	}
 	
 	@Test
 	public void testValueForAUDCAD() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "CAD"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.CAD);
 		assertEquals("USD", crossMatrixValue);
 	}
 	
 	@Test
 	public void testValueForAUDCNY() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "CNY"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.CNY);
 		assertEquals("USD", crossMatrixValue);
 	}
 	
 	@Test
 	public void testValueForAUDCZK() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "CZK"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.CZK);
 		assertEquals("USD", crossMatrixValue);
 	}
 	
 	@Test
 	public void testValueForAUDDKK() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "DKK"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.DKK);
 		assertEquals("USD", crossMatrixValue);
 	}
 	
 	@Test
 	public void testValueForAUDEUR() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "EUR"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.EUR);
 		assertEquals("USD", crossMatrixValue);
 	}
 	
 	@Test
 	public void testValueForAUDGBP() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "GBP"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.GBP);
 		assertEquals("USD", crossMatrixValue);
 	}
 	
 	@Test
 	public void testValueForAUDJPY() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "JPY"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.JPY);
 		assertEquals("USD", crossMatrixValue);
 	}
 	
 	@Test
 	public void testValueForAUDNOK() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "NOK"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.NOK);
 		assertEquals("USD", crossMatrixValue);
 	}
 	
 	@Test
 	public void testValueForAUDNZD() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "NZD"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.NZD);
 		assertEquals("USD", crossMatrixValue);
 	}
 	
 	@Test
 	public void testValueForAUDUSD() throws CurrencyException {
-		input = new String[]{"AUD", "100", "IN", "USD"};
-		String crossMatrixValue = engine.getValueFromCrossViaMatrix(input);
+		String crossMatrixValue = engine.getValueFromCrossViaMatrix(Constants.AUD, Constants.USD);
 		assertEquals("DIRECT", crossMatrixValue);
 	}
-	
-
 }
