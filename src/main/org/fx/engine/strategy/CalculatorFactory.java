@@ -1,6 +1,8 @@
 package org.fx.engine.strategy;
 
 import org.fx.constants.Constants;
+import org.fx.constants.Currency;
+
 /**
  * This is a factory class that will generate object of concrete class based on given information.
  * @author 617150
@@ -28,7 +30,9 @@ public class CalculatorFactory {
 			context = new Context(new Inverted());
 		} else if (crossViaMatrixValue.equalsIgnoreCase(Constants.UNITY)) {
 			context = new Context(new Unity());
+		} else if (crossViaMatrixValue.contains(Currency.lookup(crossViaMatrixValue).toString())) {
+			context = new Context(new CrossCountryLookup());
 		}
-		return context.executeStrategy(base, term, amount);
+		return context.executeStrategy(base, term, amount, crossViaMatrixValue);
 	}
 }

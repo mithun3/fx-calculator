@@ -13,7 +13,7 @@ public class Context {
 		this.strategy = strategy;
 	}
 
-	public double executeStrategy(String base, String term, double amount) {
-		return strategy.doOperation(base, term, amount);
+	public double executeStrategy(String base, String term, double amount, String crossViaMatrixValue) {
+		return strategy.doOperation(base, term, amount, crossViaMatrixValue);
 	}
 }

@@ -19,6 +19,6 @@ public interface Strategy {
 	 * @param amount	the money that needs to be converted.
 	 * @return
 	 */
-	public double doOperation(String base, String term, double amount);
+	public double doOperation(String base, String term, double amount, String crossViaMatrixValue);
 
 }

@@ -12,9 +12,8 @@ import org.fx.utils.CommonUtils;
 public class DirectFeed implements Strategy {
 
 	@Override
-	public double doOperation(String base, String term, double amount) {
+	public double doOperation(String base, String term, double amount, String crossViaMatrixValue) {
 		double value = Double.valueOf(CommonUtils.getCurrencyRate(base + term));
 		return amount * value;
 	}
-
 }

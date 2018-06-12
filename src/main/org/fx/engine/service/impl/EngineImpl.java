@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.fx.constants.Constants;
-import org.fx.constants.Currency;
 import org.fx.engine.service.Engine;
+import org.fx.engine.strategy.CalculatorFactory;
 import org.fx.exception.CurrencyException;
 import org.fx.utils.CommonUtils;
 import org.fx.utils.PropertiesUtil;
-import org.fx.workout.designs.strategy.CalculatorFactory;
 
 /**
  * This is the class that is responsible for FX calculation.
@@ -52,11 +51,7 @@ public class EngineImpl implements Engine {
 			throws IOException, CurrencyException {
 		String crossViaMatrixValue = getValueFromCrossViaMatrix(base, term);
 		CalculatorFactory calculatorFactory = new CalculatorFactory();
-		if (crossViaMatrixValue.contains(Currency.lookup(crossViaMatrixValue).toString())) {
-			convertedValue = calculateCrossCountryLookup(base, term, crossViaMatrixValue, amount);
-		} else {
-			convertedValue = calculatorFactory.getValue(crossViaMatrixValue, base, term, Double.valueOf(amount));
-		}
+		convertedValue = calculatorFactory.getValue(crossViaMatrixValue, base, term, Double.valueOf(amount));
 		return convertedValue;
 	}
 
