@@ -18,7 +18,7 @@ public class CrossCountryLookup implements Strategy {
 			calculatedValue = engine.calculateCrossCountryLookup(base, term, crossViaMatrixValue, String.valueOf(amount));
 		} catch (CurrencyException | IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		return calculatedValue;
 	}
