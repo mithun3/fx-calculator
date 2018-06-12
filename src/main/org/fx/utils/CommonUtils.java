@@ -81,9 +81,8 @@ public class CommonUtils {
 	 * @param convertedValue
 	 * @throws CurrencyException
 	 */
-	//TODO: aud 0 to aud >> Unable to find rate for AUD/AUD
-	private static void display(String[] input, double convertedValue) throws CurrencyException {
-		if (convertedValue == 0 && input.length == 4) {
+	private static void display(String[] input, Double convertedValue) throws CurrencyException {
+		if (convertedValue == null && input.length == 4) {
 			System.out.println(String.format(Constants.RATE_NOT_FOUND, input[0], input[3]));
 		} else if (input.length == 4){
 			System.out.println(String.format(Constants.FORMAT_OUTPUT, input[0], input[1], input[3], 
@@ -101,7 +100,7 @@ public class CommonUtils {
 	 */
 	public static void calculate(Scanner scanner, Engine engine) throws CurrencyException {
 		String[] input = scanner.nextLine().trim().split(Constants.SPLIT_BY_SPACE);
-		double convertedValue = 0;
+		Double convertedValue = null;
 		try {
 			if(Validator.isExpressionValid(input)){
 				input = updateInput(input);

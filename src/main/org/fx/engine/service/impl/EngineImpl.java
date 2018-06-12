@@ -18,6 +18,8 @@ import org.fx.workout.designs.strategy.CalculatorFactory;
  */
 public class EngineImpl implements Engine {
 	
+	Double convertedValue;
+	
 	/**
 	 * This method takes all the inputs and calculates the cross-via matrix value from the properties file.
 	 * Also, it gets the FX Rate by invoking the appropriate method.
@@ -27,7 +29,7 @@ public class EngineImpl implements Engine {
 	 * @throws CurrencyException 
 	 * @throws IOException 
 	 */
-	public double evaluate(String[] input) throws IOException, CurrencyException {
+	public Double evaluate(String[] input) throws IOException, CurrencyException {
 		String base = input[0];
 		String term = input[3];
 		String amount = input[1];
@@ -46,9 +48,8 @@ public class EngineImpl implements Engine {
 	 * @return						the cross matrix values are returned. ex: AUD to AUD is DIRECT.
 	 * @throws CurrencyException 	in case of an exception.
 	 */
-	public double getValueBasedOnCrossMatrix(String base, String term, String amount)
+	public Double getValueBasedOnCrossMatrix(String base, String term, String amount)
 			throws IOException, CurrencyException {
-		double convertedValue = 0;
 		String crossViaMatrixValue = getValueFromCrossViaMatrix(base, term);
 		CalculatorFactory calculatorFactory = new CalculatorFactory();
 		if (crossViaMatrixValue.contains(Currency.lookup(crossViaMatrixValue).toString())) {
@@ -73,12 +74,12 @@ public class EngineImpl implements Engine {
 	 * @throws CurrencyException 	in case something goes wrong / in case of an exception.
 	 * @throws IOException 			if there is problem reading the properties file.
 	 */
-	public double calculateCrossCountryLookup(String base, String term, String crossCountryBase, String amount) throws CurrencyException, IOException {
+	public Double calculateCrossCountryLookup(String base, String term, String crossCountryBase, String amount) throws CurrencyException, IOException {
 		String[] inputOne = CommonUtils.prepareArray(base, crossCountryBase, amount);
-		double convertedValueOne = evaluate(inputOne);
+		Double convertedValueOne = evaluate(inputOne);
 
 		String[] inputTwo = CommonUtils.prepareArray(crossCountryBase, term, String.valueOf(convertedValueOne));
-		double convertedValueTwo = evaluate(inputTwo);
+		Double convertedValueTwo = evaluate(inputTwo);
 		
 		return convertedValueTwo;
 	}

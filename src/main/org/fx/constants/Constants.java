@@ -20,7 +20,6 @@ public class Constants {
 	//Regular expressions
 	public static String REG_EX_DECIMAL_NUMBER = "[-+]?\\d*\\.?\\d+";
 
-	//TODO: this is wrong it should be read from classpath
 	public static final String CURRENCY_MATRIX_PATH = "currency-matrix.properties";
 	public static final String CURRENCY_RATES_PATH = "currency-rates.properties";
 	public static final String CURRENCY_DECIMALS_PATH = "currency-decimals.properties";
